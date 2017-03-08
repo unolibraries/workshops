@@ -4,8 +4,8 @@ This repository contains data and resources for workshops taught by University o
 
 ## Workshops
 
-Event                                         | Workshop                 | Date(s)       | Folder
---------------------------------------------- | ------------------------ | ---------
+Event                   | Workshop                 | Date(s)       | Folder
+----------------------- | ------------------------ | ------------- | -----------
 UNO Libraries Professional Development Series | Introduction to Palladio | March 9, 2017 | [palladio](palladio)
 
 
