@@ -7,5 +7,7 @@ This repository contains data and resources for workshops taught by University o
 Event                   | Workshop                 | Date(s)       | Folder
 ----------------------- | ------------------------ | ------------- | -----------
 UNO Libraries Professional Development Series | Introduction to Palladio | March 9, 2017 | [palladio](palladio)
+Endangered Data WEek | Web Scraping with R | April 18, 2017 |
+[web-scraping-r](web-scraping-r)
 
 
