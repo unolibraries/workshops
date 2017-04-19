@@ -14,6 +14,7 @@ output:
 knitr::opts_chunk$set(cache = TRUE)
 
 library(tidyverse)
+library(rvest)
 ```
 
 ## Web Scraping with R {.title-slide}
@@ -264,7 +265,9 @@ read_html("http://www.imdb.com/title/tt1490017/") %>%
 
 ## Your Turn
 
-Try completing the worksheet. Feel free to work together!
+Try completing the worksheet. Feel free to work together! We'll come back together towards the end to go over it as a group.
+
+<https://goo.gl/XZxTU9>
 
 ## Don't abuse your power
 
