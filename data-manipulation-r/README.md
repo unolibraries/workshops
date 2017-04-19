@@ -1,0 +1,1 @@
+Special thanks to [Lincoln Mullen](http://lincolnmullen.org) for ideas in the data manipulation worksheet.
