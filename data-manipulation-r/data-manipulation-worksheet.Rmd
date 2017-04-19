@@ -13,7 +13,7 @@ library(tidyr)
 And let's read some data that we'll be working with.
 
 ```{r}
-midwest_census <- read.csv("midwest-census.csv")
+midwest_census <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/master/data-manipulation-r/midwest-census.csv")
 ```
 
 # Select
@@ -230,10 +230,10 @@ What was the average percentage of black people in each county for each year?
 It can be helpful to think of tabular data as coming in two forms: wide data, and long data. Let's load two sets of sample data to get a sense of how these work.
 
 ```{r}
-population <- read.csv("population.csv")
+population <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/master/data-manipulation-r/population.csv")
 population
 
-cases <- read.csv("cases.csv")
+cases <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/master/data-manipulation-r/cases.csv")
 cases
 ```
 
