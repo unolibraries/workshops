@@ -5,5 +5,6 @@ a workshop on using R for web scraping.
 
 ## Workshop Schedule
 
-Event | Speaker | Date
+Event                | Speaker          | Date
+-------------------- | ---------------- | ---------------
 Endangered Data Week | Jason A. Heppler | April 17, 2017
