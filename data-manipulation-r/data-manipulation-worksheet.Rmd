@@ -8,12 +8,14 @@ Load some necessary packages.
 ```{r, include=FALSE}
 library(dplyr)
 library(tidyr)
+library(readr)
 ```
 
 And let's read some data that we'll be working with.
 
 ```{r}
-midwest_census <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/master/data-manipulation-r/midwest-census.csv")
+midwest_census <- read_csv("https://raw.githubusercontent.com/unolibraries/workshops/master/data-manipulation-r/midwest-census.csv")
+midwest_census[is.na(midwest_census)] <- 0
 ```
 
 # Select
@@ -101,10 +103,10 @@ The `mutate()` function lets us create new columns out of existing columns. Perh
 
 ```{r}
 midwest_census %>%
-  mutate(percentageAfAm = round(100 * totalAfAmPopulation / totalPopulation))
+  mutate(percentageAfAm = 100 * totalAfAmPopulation / totalPopulation)
 ```
 
-Can you calculate the percentage of the population that is white? The percentage of the population that is black? Can you create a `population_nonwhite` column?
+Can you calculate the percentage of the population that are slaves? Can you create a `population_nonwhite` column?
 
 ```{r}
 
