@@ -83,10 +83,11 @@ Get just the rows from Kansas in 1890.
 
 # Arrange
 
-The `arrange()` function lets us sort. Often we want to sort a data frame by one of its columns. This can be done with the verb `arrange()`. By default `arrange()` will sort from least to greatest; we can use the function `desc()` to sort from greatest to least. In this example, we sort the data frame to get the cities with the highest number of people. Here are the biggest counties in 1830. (Notice that we can create a pipeline of functions.)
+The `arrange()` function lets us sort. Often we want to sort a data frame by one of its columns. This can be done with the verb `arrange()`. By default `arrange()` will sort from least to greatest; we can use the function `desc()` to sort from greatest to least. In this example, we sort the data frame to get the counties with the highest number of people. Here are the biggest counties in 1830. (Notice that we can create a pipeline of functions.)
 
 ```{r}
 midwest_census %>% 
+  select(year, state, county, totalPopulation) %>% 
   filter(year == 1830) %>% 
   arrange(desc(totalPopulation))
 ```
@@ -103,7 +104,7 @@ The `mutate()` function lets us create new columns out of existing columns. Perh
 
 ```{r}
 midwest_census %>%
-  mutate(percentageAfAm = 100 * totalAfAmPopulation / totalPopulation)
+  mutate(percentage_AfAm = 100 * totalAfAmPopulation / totalPopulation)
 ```
 
 Can you calculate the percentage of the population that are slaves? Can you create a `population_nonwhite` column?
@@ -125,12 +126,12 @@ midwest_census %>%
   select(year, totalAfAmPopulation, county, state) %>% 
   group_by(year) %>% 
   arrange(desc(totalAfAmPopulation)) %>% 
-  slice(5) 
+  slice(1) 
 ```
 
 Let's walk through that logic step by step. 
 
-1. First, we select only the columns that we are interested in, namely, the column for the year, the total black population, the county, and the year. We do this just so that the results print out in a useful way: in a real analysis we might decide not to throw away the other columns.
+1. First, we select only the columns that we are interested in, namely, the column for the year, the total black population, the county, and the state. We do this just so that the results print out in a useful way: in a real analysis we might decide not to throw away the other columns.
 2. The crucial step is when we `group_by()` the `year`. This creates a new data-frame (the *split* step) for each unique combination of values in the variables. (Note that you can group by combinations of columns, so, one group for each combination of city and state, for instance.)
 4. Next we *apply* our logic, in this case, sorting by the column `totalAfAmPopulation` in descending order. This puts the rows with the biggest value at the top.
 5. Next we continue to *apply* our logic with `slice()`. This function simply gives us the rows in each of the split-up data frames with that index. So `slice(1)` gives us the first row, `slice(5)` gives us this fifth row, and `slice(1:5)` gives us the first through fifth rows. 
@@ -146,15 +147,6 @@ midwest_census %>%
 ```
 
 We get the same results more concisely and reliably, though the steps of "split-apply-combine" are perhaps somewhat less easy to see.
-
-The data that we are currently working with has one row for each combination of a **year** and a **population**. We might want to know the total number of African Americans for each year. To do this, we need to group by a variable, then use an aggregation function.
-
-```{r}
-midwest_census %>% 
-  group_by(year) %>% 
-  summarize(counties = n(),
-            totalAfAm = sum(totalAfAmPopulation))
-```
 
 For each year, which was the biggest county?
 
@@ -192,23 +184,26 @@ There is also a special case where we might want to know how many rows were in e
 
 ```{r}
 midwest_census %>% 
-  group_by(county) %>% 
+  group_by(year) %>% 
   summarize(total_counties = n())
 ```
 
-What is the average number of white and average number of black people the total population for each year since 1840?
+The data that we are currently working with has one row for each combination of a **year** and a **population**. We might want to know the total number of African Americans for each year. To do this, we need to group by a variable, then use an aggregation function.
+
+```{r}
+midwest_census %>% 
+  group_by(year) %>% 
+  summarize(total_counties = n(),
+            totalAfAm = sum(totalAfAmPopulation, na.rm = TRUE))
+```
+
+What was the average number of people in each county per year?
 
 ```{r}
 
 ```
 
-What was the average number of people in each county for each year?
-
-```{r}
-
-```
-
-What was the average percentage of black people in each county for each year?
+What was the average number of black people in the Midwest per year?
 
 ```{r}
 
@@ -226,11 +221,11 @@ cases <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/mast
 cases
 ```
 
-The first thing we can notice about this data frame is that it is very wide because it has a column for each of the countries. The data is also suitable for reading because it reads like a table in a publication. We can read from left to right and see population or case values for each year. The difficulties of computing on or plotting the data will also become quickly apparent. How would you make a plot of the change over time? Or how would you filter by year, or summarize by year? For that matter, what do the numbers in the table represent, since they are not given an explicit variable name?
+The first thing we can notice about the first data frame is that it is very wide because it has a column for each of the years. The data is also suitable for reading because it reads like a table in a publication. We can read from left to right and see population or case values for each year. The difficulties of computing on or plotting the data will also become quickly apparent. How would you make a plot of the change over time? Or how would you filter by year, or summarize by year? For that matter, what do the numbers in the table represent, since they are not given an explicit variable name?
 
 The problem with the table is that it is not *tidy data*, because the variables are not in columns and observations in rows. One of the variables is the year, but its values are in the column headers. And another of the variables is population, but its values are spread across rows and columns and it is not explicitly named. 
 
-The `gather()` function from the [tidyr](https://cran.rstudio.com/web/packages/tidyr/) package lets us turn wide data into long data. We need to tell the function two kinds of information. First we need to tell it the name of the column to create from the column headers and the name of the implicit variable in the rows. In the example below, we create two new columns `year` and `cases`. Then we also have to tell the function if there are any columns which should remain unchanged. If that were the case, we would remove it from the gathering using the same syntax as the `select()` function.
+The `gather()` function from the [tidyr](https://cran.rstudio.com/web/packages/tidyr/) package lets us turn wide data into long data. We need to tell the function two kinds of information. First we need to tell it the name of the column to create from the column headers and the name of the implicit variable in the rows. In the example below, we create two new columns `year` and `population`. Then we also have to tell the function if there are any columns which should remain unchanged. If that were the case, we would remove it from the gathering using the same syntax as the `select()` function.
 
 ```{r}
 population %>% 
@@ -247,22 +242,23 @@ cases %>%
   spread(key, value)
 ```
 
-Just by looking at the data we can see that we got back to where we started, but we can also verify that programmatically using the `identical()` function.
+We can also verify that programmatically using the `identical()` function.
 
 Turning long data into wide is often useful when you want to create a tabular representation of data. (And once you have a data frame that can be a table, the `knitr::kable()` function is quite nice.) And some algorithms, such as clustering algorithms, expect wide data rather than tidy data.
 
-For the exercise, we will use summary statistics of the number of white and black members in the Methodists by year.
+For the exercise, we will use summary statistics of the number of white and black people in the Midwest by year.
 
 ```{r}
-states_by_year_race <- midwest_census %>% 
+midwest_census <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/master/data-manipulation-r/midwest-census.csv")
+states_by_year_and_race <- midwest_census %>% 
   group_by(year) %>% 
   summarize(white = sum(totalWhitePopulation, na.rm = TRUE),
             black = sum(totalAfAmPopulation, na.rm = TRUE),
-            indian = sum(totalIndianPopulation, na.rm = TRUE))
-states_by_year_race
+            native_am = sum(totalIndianPopulation, na.rm = TRUE))
+states_by_year_and_race
 ```
 
-The data in `states_by_year_race` could be tidier still. While `white`, `black`, and `indian` are variables, it is perhaps better to think of them as two different variables. One variable would be `race`, containing the racial descriptions that the Census used, and another would be `population`, containing the number of members. Using the `gather()` function, create that data frame.
+The data in `states_by_year_and_race` could be tidier still. While `white`, `black`, and `native_am` are variables, it is perhaps better to think of them as two different variables. One variable would be `race`, containing the racial descriptions that the Census used, and another would be `population`, containing the number of members. Using the `gather()` function, create that data frame.
 
 ```{r}
 
