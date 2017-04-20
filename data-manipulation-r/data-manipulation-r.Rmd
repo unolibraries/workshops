@@ -161,6 +161,6 @@ dplyr:
 
 ## Folow along / exercise
 
-Open the file `https://goo.gl/fKYLYf`. Paste into RStudio and follow along to practice the grammar of data manipulation.
+Open the file [https://goo.gl/to5A4S](https://goo.gl/fKYLYf). Paste into RStudio and follow along to practice the grammar of data manipulation.
 
 ## Thanks!
