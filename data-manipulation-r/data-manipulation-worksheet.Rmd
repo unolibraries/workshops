@@ -32,17 +32,13 @@ Read the documentation for this function, `?select`.
 Select the `year` and `state` columns, and all the columns that end with the word `Population`.
 
 ```{r}
-{{DELETE}}
-midwest_census %>%
-  select(year, state, ends_with("Population"))
+
 ```
 
 Remove the column `GISJOIN`.
 
 ```{r}
-{{DELETE}}
-midwest_census %>%
-  select(-GISJOIN)
+
 ```
 
 Pick just the columns that you want:
@@ -68,25 +64,19 @@ midwest_census %>%
 Can you get just the counties with a total population more than 10,000 people?
 
 ```{r}
-{{DELETE}}
-midwest_census %>%
-  filter(totalPopulation > 10000)
+
 ```
 
 Can you get just the counties between 1820 and 1870?
 
 ```{r}
-{{DELETE}}
-midwest_census %>%
-  filter(year > 1820 & year < 1870)
+
 ```
 
 Get just the rows from Kansas in 1890.
 
 ```{r}
-{{DELETE}}
-midwest_census %>%
-  filter(year == 1890, state == "Kansas")
+
 ```
 
 # Arrange
@@ -102,10 +92,7 @@ midwest_census %>%
 Which counties had the highest number of African Americans?
 
 ```{r}
-{{DELETE}}
-midwest_census %>%
-  select(totalAfAmPopulation, county, state, year) %>%
-  arrange(desc(totalAfAmPopulation))
+
 ```
 
 # Mutate
