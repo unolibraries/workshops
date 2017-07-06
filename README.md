@@ -10,5 +10,6 @@ UNO Libraries Professional Development Series | Introduction to Palladio | March
 Endangered Data Week | Web Scraping with R | April 18, 2017 | [web-scraping-r](web-scraping-r)
 Endangered Data Week | Introduction to Github | April 19, 2017 |
 Endangered Data Week | Data Manipulation with R | April 20, 2017 | [data-manipulation-r](data-manipulation-r)
+Graduate Studies Workshops | Introduction to Data Visualization | September 7, 2017 | [intro-data-viz](intro-data-viz)
 
 
