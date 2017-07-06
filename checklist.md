@@ -26,7 +26,7 @@
 
 **At the workshop**:
 
-- [ ] Remind attendees about the [Code of Conduct](http://github.com/unolibraries/code_of_conduct.md)
+- [ ] Remind attendees about the [Code of Conduct](https://github.com/unolibraries/workshops/blob/master/code_of_conduct.md)
 
 **After the workshop**:
 
