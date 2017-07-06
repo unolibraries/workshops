@@ -35,7 +35,7 @@ Some links that will be used in the workshop: workshop page [link to workshop pa
 
 Getting to the workshop: [add directions to your workshop location]
 
-Please read our Code of Conduct <http://github.com/unolibraries/workshops/code_of_conduct.md> so that we all are aware of how to treat each other respectfully.
+Please read our Code of Conduct <https://github.com/unolibraries/workshops/blob/master/code_of_conduct.md> so that we all are aware of how to treat each other respectfully.
 
 Let us know if you have any questions, otherwise we will see you [day of week] morning!
 
