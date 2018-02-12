@@ -12,5 +12,8 @@ Endangered Data Week | Introduction to Github | April 19, 2017 |
 Endangered Data Week | Data Manipulation with R | April 20, 2017 | [data-manipulation-r](data-manipulation-r)
 Graduate Studies Workshops | Introduction to Data Visualization | September 7, 2017 | [intro-data-viz](intro-data-viz)
 ENGL 3000 | Introduction to Palladio | February 13, 2018 | [palladio](palladio)
+Endangered Data Week | Data Manipulation with R | February 26, 2018 | [data-manipulation-r](data-manipulation-r)
+Endangered Data Week | Data Visualization with R | February 28, 2018 | [data-visualization-r](data-visualization-r)
+
 
 
