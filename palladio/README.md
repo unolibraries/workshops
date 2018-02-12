@@ -9,3 +9,4 @@ Material here is based on Miriam Posner's [Palladio workshop](https://github.com
 Event | Speaker | Date
 ----- | ------- | ----
 UNO Libraries Professional Development Series | Jason A. Heppler | March 9, 2017
+ENGL 3000 | Jason A. Heppler | Feburary 13, 2018
