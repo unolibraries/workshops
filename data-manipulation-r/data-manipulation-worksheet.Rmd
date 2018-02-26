@@ -192,7 +192,7 @@ The data that we are currently working with has one row for each combination of 
 midwest_census %>% 
   group_by(year) %>% 
   summarize(total_counties = n(),
-            totalAfAm = sum(totalAfAmPopulation, na.rm = TRUE))
+            totalAfAm = sum(freeAfAmPopulation, slavePopulation, na.rm = TRUE))
 ```
 
 What was the average number of people in each county per year?
