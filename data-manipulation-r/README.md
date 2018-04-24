@@ -13,3 +13,5 @@ Population Project](https://github.com/hepplerj/midwest-map-population).
 Event                | Speaker          | Date
 -------------------- | ---------------- | --------------
 Endangered Data Week | Jason A. Heppler | April 20, 2017
+Endangered Data Week | Jason A. Heppler | February 27, 2018
+HIST 4900            | Jason A. Heppler | April 25, 2018
