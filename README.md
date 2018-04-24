@@ -11,11 +11,10 @@ Endangered Data Week | Web Scraping with R | April 18, 2017 | [web-scraping-r](w
 Endangered Data Week | Introduction to Github | April 19, 2017 |
 Endangered Data Week | Data Manipulation with R | April 20, 2017 | [data-manipulation-r](data-manipulation-r)
 Graduate Studies Workshops | Introduction to Data Visualization | September 7, 2017 | [intro-data-viz](intro-data-viz)
-Endangered Data Week | Data Visualization with R | February 28, 2018 | [data-manipulation-r](data-manipulation-r)
-HIST 4900            | Introduction to R         | April 25, 2018    | [data-manipulation-r](data-manipulation-r)
 ENGL 3000 | Introduction to Palladio | February 13, 2018 | [palladio](palladio)
 Endangered Data Week | Data Manipulation with R | February 26, 2018 | [data-manipulation-r](data-manipulation-r)
 Endangered Data Week | Data Visualization with R | February 28, 2018 | [data-visualization-r](data-visualization-r)
+HIST 4900            | Introduction to R         | April 25, 2018    | [data-manipulation-r](data-manipulation-r)
 
 ## Digital Ocean setup for R workshops
 
