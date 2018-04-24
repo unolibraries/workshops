@@ -6,9 +6,7 @@ output: html_document
 Load some necessary packages.
 
 ```{r, include=FALSE}
-library(dplyr)
-library(tidyr)
-library(readr)
+library(tidyverse)
 ```
 
 And let's read some data that we'll be working with.
@@ -107,7 +105,7 @@ midwest_census %>%
   mutate(percentage_AfAm = 100 * totalAfAmPopulation / totalPopulation)
 ```
 
-Can you calculate the percentage of the population that are slaves? Can you create a `population_nonwhite` column?
+Can you create a `population_nonwhite` column?
 
 ```{r}
 
@@ -194,7 +192,7 @@ The data that we are currently working with has one row for each combination of 
 midwest_census %>% 
   group_by(year) %>% 
   summarize(total_counties = n(),
-            totalAfAm = sum(totalAfAmPopulation, na.rm = TRUE))
+            totalAfAm = sum(freeAfAmPopulation, slavePopulation, na.rm = TRUE))
 ```
 
 What was the average number of people in each county per year?
@@ -250,6 +248,7 @@ For the exercise, we will use summary statistics of the number of white and blac
 
 ```{r}
 midwest_census <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/master/data-manipulation-r/midwest-census.csv")
+
 states_by_year_and_race <- midwest_census %>% 
   group_by(year) %>% 
   summarize(white = sum(totalWhitePopulation, na.rm = TRUE),
