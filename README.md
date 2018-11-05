@@ -15,8 +15,13 @@ ENGL 3000 | Introduction to Palladio | February 13, 2018 | [palladio](palladio)
 Endangered Data Week | Data Manipulation with R | February 26, 2018 | [data-manipulation-r](data-manipulation-r)
 Endangered Data Week | Data Visualization with R | February 28, 2018 | [data-visualization-r](data-visualization-r)
 HIST 4900            | Introduction to R         | April 25, 2018    | [data-manipulation-r](data-manipulation-r)
+UNO Libraries        | Collect & Prep Your Data for Visualization and Analysis with R | November 8, 2018    | [data-manipulation-r](data-manipulation-r)
+UNO Libraries        | Information Visualization with RAW | November 15, 2018    | `information-visualization-raw` 
 
 ## Digital Ocean setup for R workshops
+
+Create a new Digital Ocean droplet, making sure to have SSH available and
+selecting Ubuntu as your Linux distro.
 
 ```
 sudo apt-get update
@@ -31,7 +36,8 @@ sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev
 Then install the needed packages.
 
 ```
-install.packages(c('tidyverse'), repos='http://cran.rstudio.com')
+install.packages(c('tidyverse','rmarkdown'), repos='http://cran.rstudio.com',
+dependencies = TRUE)
 ```
 
 ### Rstudio clean URL
