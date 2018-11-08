@@ -73,7 +73,7 @@ coffee_data %>%
   select(Species, Owner, Country.of.Origin)
 ```
 
-We can also get rid of columns by using the `-` sign. The `starts_with()` and `ends_with()` functions are useful.
+We can also get rid of columns by using the `-` sign. The `starts_with()`, `ends_with()`, and `str_detect` (from `stringr`) functions are useful.
 
 Read the documentation for this function, `?select`.
 
