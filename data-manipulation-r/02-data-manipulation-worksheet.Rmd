@@ -244,13 +244,7 @@ coffee_data %>%
   summarize(total_farms = n())
 ```
 
-What was the average number of farms in each country per year?
-
-```{r}
-
-```
-
-What was the average number of farms in South America per year?
+What was the total number of farms in South America per year? (Note: you'll need  the comparison operator `|`).
 
 ```{r}
 
