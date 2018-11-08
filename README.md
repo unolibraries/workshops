@@ -42,13 +42,22 @@ dependencies = TRUE)
 
 ### Rstudio clean URL
 
+Make sure nginx is installed.
+
 ```
 sudo apt-get update
 sudo apt-get -y install nginx
+```
 
+Edit the config file:
+
+```
 $ sudo vim /etc/nginx/sites-enabled/default
+```
 
-default:
+Delete the contents here, and replace with:
+
+```
 server {
   listen 80; 
 
@@ -58,7 +67,11 @@ server {
     proxy_redirect http://localhost:8787/ $scheme://$host/rstudio/;
   }
 }
+```
 
+Then restart nginx for the changes to take place.
+
+```
 sudo service nginx restart
 ```
 
