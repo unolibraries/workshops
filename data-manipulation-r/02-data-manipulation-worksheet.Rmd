@@ -73,7 +73,7 @@ coffee_data %>%
   select(Species, Owner, Country.of.Origin)
 ```
 
-We can also get rid of columns by using the `-` sign. The `starts_with()` and `ends_with()` functions are useful.
+We can also get rid of columns by using the `-` sign. The `starts_with()`, `ends_with()`, and `str_detect` (from `stringr`) functions are useful.
 
 Read the documentation for this function, `?select`.
 
@@ -244,13 +244,7 @@ coffee_data %>%
   summarize(total_farms = n())
 ```
 
-What was the average number of farms in each country per year?
-
-```{r}
-
-```
-
-What was the average number of farms in South America per year?
+What was the total number of farms in South America per year? (Note: you'll need  the comparison operator `|`).
 
 ```{r}
 
