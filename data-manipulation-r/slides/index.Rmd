@@ -2,7 +2,7 @@
 title: "Collect & Prep Your Data for Visualization and Analysis with R"
 subtitle: "University of Nebraska at Omaha Libraries"
 author: "Jason Heppler, PhD<br>@jaheppler"
-date: "2018-11-05<br><br>Slides and code on GitHub: **github.com/unolibraries/workshops/**"
+date: "September 23, 2019<br><br>Slides and code on GitHub: **github.com/unolibraries/workshops/**"
 output:
   xaringan::moon_reader:
     lib_dir: libs

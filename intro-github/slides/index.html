@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Introduction to Git and GitHub</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jason Heppler, PhD @jaheppler" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="hepp.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to Git and GitHub
+## University of Nebraska at Omaha
+### Jason Heppler, PhD<br><span class="citation">@jaheppler</span>
+### September 5, 2019<br><br>Slides and code on GitHub: <strong>github.com/unolibraries/</strong>
+
+---
+
+
+class: fullscreen, inverse, bottom, left, text-white
+background-image: url("images/me-speaking.jpg")
+
+.font150[**Hi, I'm Jason. &lt;br&gt;I like to gesture at screens.**]
+
+**Digital Engagement Librarian**, University of Nebraska at Omaha&lt;br&gt;Mentor, **Mozilla Open Leaders**&lt;br&gt;Researcher,  **Humanities+Design**, Stanford University
+
+
+
+
+---
+
+# What is version control? 
+
+1. Tracking changes through "repositories"
+2. Controlling which changes are implemented in individual files 
+3. Designed for software code, but adapted by data scientists + others
+
+## Why version control?
+
+- experiment without fear
+- explore cause and effect
+- embrace incrementalism
+- collaborate 
+- expose your work
+
+---
+
+# Git + GitHub
+
+## Why Git?
+
+1. Robust and widely adopted
+2. Flexible workflow 
+3. Good for collaborative work
+
+## Why GitHub?
+
+1. Hosted site for using Git
+2. Open by default
+3. Private repos available for .edu accounts
+
+You'll be using GitHub a lot for this course! Expect at least two `repos`: personal (for individual assignments) and team (for team assignments).
+
+---
+
+# Three ways to use GitHub
+
+- **Command line interface**: using Terminal (macOS) or a third-party app on Windows (Cygwin), you enter text commands to complete git management tasks. 
+- **GitHub Desktop**: Using the desktop app, you can drag-and-drop actions in a user interface. 
+- **GitHub in the browser**: Using your browser on the GitHub website, you can do all the same things as other tools. 
+
+Be mindful of the workflow: most of the time, the changes you're making to the files in a repository are made in another app (a text editor or command-line clients).
+
+---
+class: center, middle
+
+Use a Git client, if you'd like. There's no 🤘Hardcore Nerd🤘 Git badges. 
+
+There's no "best" way here -- use what works for you.
+
+---
+layout: none
+
+![GitHub workflow.](images/git-flow.png)
+
+---
+
+# Git + GitHub
+
+.left-column[
+### Concepts
+]
+
+.right-column[
+  `commit`: a file or project state **that is meaningful for you** 
+]
+
+---
+
+# Git + GitHub
+
+.left-column[
+### Concepts
+]
+
+.right-column[
+  `commit`: a file or project state **that is meaningful for you** 
+
+  `diff`: what changed here? why?
+]
+
+---
+
+# Git + GitHub
+
+.left-column[
+### Concepts
+]
+
+.right-column[
+  `commit`: a file or project state **that is meaningful for you** 
+
+  `diff`: what changed here? why?
+  
+  `fork`: make a remote copy of a repository
+]
+
+---
+
+# Git + GitHub
+
+.left-column[
+### Concepts
+]
+
+.right-column[
+  `commit`: a file or project state **that is meaningful for you**
+
+  `diff`: what changed here? why?
+  
+  `fork`: make a remote copy of a repository
+  
+  `clone`: make a local project from a remote repo
+]
+
+---
+
+# Git + GitHub
+
+.left-column[
+### Concepts
+]
+
+.right-column[
+  `commit`: a file or project state **that is meaningful for you**
+
+  `diff`: what changed here? why?
+  
+  `fork`: make a remote copy of a repository
+  
+  `clone`: make a local project from a remote repo
+  
+  `push`: upload a local repository to a remote repository
+]
+
+---
+
+# Git + GitHub
+
+.left-column[
+### Concepts
+]
+
+.right-column[
+  `commit`: a file or project state **that is meaningful for you** 
+
+  `diff`: what changed here? why?
+  
+  `fork`: make a remote copy of a repository
+  
+  `clone`: make a local project from a remote repo
+  
+  `push`: upload a local repository to a remote repository
+  
+  `merge`: take independent lines of development and integrate them into a single branch
+]
+
+---
+
+# Git + GitHub
+
+.left-column[
+### Concepts
+]
+
+.right-column[
+  `commit`: a file or project state **that is meaningful for you** 
+
+  `diff`: what changed here? why?
+  
+  `fork`: make a remote copy of a repository
+  
+  `clone`: make a local project from a remote repo
+  
+  `push`: upload a local repository to a remote repository
+  
+  `merge`: take independent lines of development and integrate them into a single branch
+  
+  `fetch`: downloads commits, files, and refs from a remote
+]
+
+---
+
+# Git + GitHub
+
+.left-column[
+### Concepts
+]
+
+.right-column[
+  `commit`: a file or project state **that is meaningful for you**
+
+  `diff`: what changed here? why?
+  
+  `fork`: make a remote copy of a repository
+  
+  `clone`: make a local project from a remote repo
+  
+  `push`: upload a local repository to a remote repository
+  
+  `merge`: take independent lines of development and integrate them into a single branch
+  
+  `fetch`: downloads commits, files, and refs from a remote
+  
+  `pull`: fetch and download content from a remote repository &amp; immediately update local repository to match (`fetch` + `merge`)
+]
+
+---
+
+# `git clone`
+
+![](images/git-clone.png)
+
+---
+
+# `git push` &amp; `git pull`
+
+![](images/git-push.png)
+
+---
+
+# `git fork`
+
+![](images/git-fork.png)
+
+---
+
+# `git fork` &amp; `git clone`
+
+![](images/git-forkclone.png)
+
+---
+
+# `git pull` &amp; `git push`
+
+![](images/git-pullpush.png)
+
+
+---
+
+# GitHub
+
+.left-column[
+### For more than code
+]
+
+.right-column[
+
+Writing a book
+- Fork the Cookbook - recipe modification traceability 
+- &lt;http://forkthecookbook.com/about&gt;
+
+Publication review
+- ReScience - Peer-reviewed journal
+- &lt;https://github.com/ReScience/ReScience&gt;
+
+Collaboration
+- Designing fonts
+- &lt;https://github.com/theleagueof&gt;
+  
+]
+
+---
+class: fullscreen, inverse, bottom, center, text-white
+background-image: url("https://media.giphy.com/media/XreQmk7ETCak0/giphy.gif")
+
+# Time to get hands-on with git!
+
+
+---
+
+# Git activity
+
+- Practice: &lt;https://learngitbranching.js.org&gt;
+  - Emulator for a git command line experience without actually using your system
+  - Work through the introduction sequence (parts 1-4)
+  - 15 minutes
+
+- Create your first repo: &lt;https://github.com/&gt;
+  - Find the "+" in the upper right side of the screen to create a new repo
+  - Give it any name you wish. Select the checkbox to include a README.
+  - Create a new file called `helloworld.md` and in the document write "Hello world!" 
+  - 5 minutes
+  
+If you finish quickly, help someone else! 
+
+---
+class: fullscreen, inverse, bottom, center, text-white
+background-image: url("images/break.jpg")
+
+# Let's take a break. Come back in 5 minutes.
+(My favorite place in the world: the Yosemite valley)
+
+
+---
+
+# Git activity
+
+Let's work through this together. We'll spend the next 30 minutes, using the browser only:
+
+1. **Owner of master**: This is our `master` source: &lt;https://github.com/unolibraries/intro-github-isqa&gt;
+2. **Rest of the group**: `fork` that repo!
+3. **Each person**: add one file to your forked repo that is labeled with your last name and favorite flavor of ice cream in the format: `lastname-flavor.md`.
+4. **Each person**: After you've made changes, `commit` those and issue a **pull request** to the master `repo`. The **owner of master** will review pull requests and merge.
+5. **Each person**: `fetch` to [get new files](https://github.com/KirstieJane/STEMMRoleModels/wiki/Syncing-your-fork-to-the-original-repository-via-the-browser), edit a few files at least once (describe the flavor or update the description), and make a **pull request** to upload the changes.
+5. **Owner of master**: Review pull requests and integrate changes.
+6. Do a few additional `fetch` and `pull requests`. Do a few `push` and `pull` actions.
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
