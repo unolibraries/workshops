@@ -15,10 +15,16 @@ ENGL 3000 | Introduction to Palladio | February 13, 2018 | [palladio](palladio)
 Endangered Data Week | Data Manipulation with R | February 26, 2018 | [data-manipulation-r](data-manipulation-r)
 Endangered Data Week | Data Visualization with R | February 28, 2018 | [data-visualization-r](data-visualization-r)
 HIST 4900            | Introduction to R         | April 25, 2018    | [data-manipulation-r](data-manipulation-r)
-Data Literacies      | Personal Data Literacy | November 2, 2018    |
-`personal-data` 
+Data Literacies      | Personal Data Literacy | November 2, 2018    | `personal-data` 
 UNO Libraries        | Collect & Prep Your Data for Visualization and Analysis with R | November 8, 2018    | [data-manipulation-r](data-manipulation-r)
 UNO Libraries        | Information Visualization with RAW | November 15, 2018    | `information-visualization-raw` 
+UNO Libraries        | Data Manipulation with R           | March 11, 2019 | [data-manipulation-r](data-manipulation-r)
+UNO Libraries        | Data Visualization with R          | March 13, 2019 | [data-visualization-r](data-visualization-r)
+UNO Libraries        | Introduction to GitHub             | September 5, 2019 | [intro-github](intro-github)
+UNO Libraries        | Data Manipulation with R           | September 23, 2019 | [data-manipulation-r](data-manipulation-r)
+UNO Libraries        | Data Manipulation with R           | October 1, 2019 | [data-manipulation-r](data-manipulation-r)
+UNO Libraries        | Data Visualization with R           | October 7, 2019 | [data-visualization-r](data-visualization-r)
+UNO Libraries        | Data Visualization with R           | October 15, 2019 | [data-visualization-r](data-visualization-r)
 
 ## Digital Ocean setup for R workshops
 
