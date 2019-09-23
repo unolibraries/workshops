@@ -231,6 +231,8 @@ For each year, what were the top three largest counties?
 
 ```
 
+# Capstone
+
 For the year 1910, what was the largest county in each state?
 
 ```{r}
@@ -238,6 +240,12 @@ For the year 1910, what was the largest county in each state?
 ```
 
 For each year, what were the three largest counties in Nebraska?
+
+```{r}
+
+```
+
+How would you arrange the population of all counties by largest first? 
 
 ```{r}
 
