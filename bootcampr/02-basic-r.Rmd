@@ -1,0 +1,242 @@
+---
+title: "R Basics"
+date: "2/3/2020"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## RStudio 
+
+We'll be doing all of our work in RStudio, an integrated development environment that is intended to make working with the language easier. The purpose of this workshop is to spend some time getting familiar with RStudio and R and explore different elements of both the language and the user interface of RStudio.
+
+## R Basics
+
+1. See if you can have R add 2 plus 2. 
+
+```{r}
+
+```
+
+2. Try to calculate the square root of 10 (hint: try typing `?sqrt` into the console.)
+
+```{r}
+
+```
+
+3. RStudio includes lots of documentation. See if you can locate the "An Introduction to R" section of the R Resources guide using the Help pane in RStudio.
+
+### Assignment
+
+R lets us assign variables to values, datasets, and even functions. This lets us store information that we can access again and again as we do our work. In R, this is done through the arrow operator `<-` -- anything on the right-hand side of the arrow will be assigned the name provided on the left-hand side. 
+
+```{r}
+x <- 10
+x
+```
+
+```{r}
+root_10 <- sqrt(10)
+root_10
+```
+
+Names of variables should start with a letter and typically be descriptive so you can keep track of variables as you work with them. Anytime to you need to see what's in the variable, you can type the name of the variable in the console or mouse click the name of the variable in the Environment pane in RStudio.
+
+### Help!
+
+R contains a lot of included documentation, and you can ask for help at any time in RStudio. You can do this through the `help()` function or the `?` shortcut. You can ask for help on functions or packages. 
+
+```{r}
+help(help) # or, ?help
+```
+
+### Reading data into R 
+
+Occassionally we can load in datasets that are built-in to R by default or are available through R packages. For example, you can use the `superfundr` library to load in a dataset of Superfund sites in the United States. 
+
+```{r}
+library(superfundr)
+data(superfunds)
+superfunds
+```
+
+R also has several default ways of reading in files from comma-separated files, tab-separated files, fix width files, table formats, or other elimited files. There are a few functions available in R to get data in, including `read.csv`, `read.delim()`, `read.fwf()`, `read.table()`, and others. When you read data into R, you'll assign the dataset to a variable.
+
+```{r}
+data <- read.csv("../../data/babyNames.csv")
+# Look at the top ten rows
+head(data)
+```
+
+There is, however, a better way to get this data in. Base R's `read.csv()` will often read in categorical data as [factors](), which you typically won't want. You could pass an argument to `read.csv()` to prevent that, using `read.csv(data, stringsAsFactors = FALSE)`, but an even better way to do this is by using the data reading and writing functions available in the [Tidyverse](). The Tidyverse mimics Base R's data reading capabilities, but tries to smartly handle data as it comes in, including identifying dates, strings, and numbers. We can re-work the above data input as: 
+
+```{r}
+library(tidyverse)
+
+# Note the underscore instead of the period
+data2 <- read_csv("../../data/babyNames.csv")
+```
+
+You'll note that the Tidyverse outputs some information for you to review, telling you that it has identified two columns containing character strings (Name and Sex) and two columns of integers (Count and Year). We could take this a step further and convert the Year into a Date object, but for now this works as we need it to.
+
+We can double-check the structure of our dataset using R's `str()` function, which tells us how R is interpreting columns. See this section's [exercises](https://jasonheppler.org/courses/bootcampr.2020/exercises/02-exercises/) for more information.
+
+```{r}
+str(data2)
+```
+
+## Welcome to the tidyverse
+
+We're going to compare approaches to Base R and Tidyverse methods over the next few exercises, and we'll be using the baby names dataset for the next few examples. So, let's make sure we all have the same dataset assigned to the same variable. 
+
+```{r}
+babynames <- read_csv("../../data/babyNames.csv")
+head(babynames)
+```
+
+First, let's say we want to filter out names of babies born in a specific year. In Base R, we can achieve that through a method called **subsetting**. R has powerful ways for us to subset object elements, and we can do a variety of things to access the information. In Base R, if we want to locate all baby names used in 1990 one way of achieving that would be: 
+
+```{r}
+babynames_subset <- babynames[which(babynames$Year==1990), ]
+babynames_subset
+```
+
+There's a lot going on here, so let's break it down. 
+
+1. First things first, we are telling R which dataset we are using (`babynames`) and we use the `[` and `]` brackets to access the index of the data frame. We refer to the brackets as an **index operator**.
+2. Next, we pass along the `which()` function, which is a logical function that returns TRUE or FALSE for a given argument. Anything that returns TRUE is returned back to us. 
+3. We have to tell the dataset which column we're intereseted in looking at. The dollar sign in `babynames$Year` lets us grab an individual column by name. Go ahead and, in your console, type `babynames$` and hit Tab -- you should be returned a list of the column names. 
+4. We then use a **comma** following the `which()` function, which tells R to return *rows* from the data frame. If we placed the comma in front of the `which()` function, we'd be telling R to return *columns* as a data frame.
+5. Finally, we close the notation with the right bracket and assign the returned data to `babynames_subset`.
+
+We can make this a little easier using the `subset()` function, which means you won't need to use the Base R notations to access the index. 
+
+```{r}
+babynames_subset2 <- subset(babynames, Year == 1990)
+babynames_subset2
+```
+
+For the remainder of this workshop, however, we're going to use the Tidyverse library for accessing data in our data frames. We can achieve the same subset of data by typing: 
+
+```{r}
+babynames %>% 
+  filter(Year == 1990)
+```
+
+Why the Tidyverse? Because the above code is *much* cleaner than the Base R method. Most of the functions of the Tidyverse follow a grammar, typically verbs that indicate action being done upon a dataframe (like `filter` or `select` or `mutate` -- more on this later.)
+
+We can also grab a range of columns, or specific columns as we need. For example, using the Tidyverse we can write:
+
+```{r}
+# We only want the Name and Year columns
+babynames %>% 
+  select(Name, Year)
+```
+
+```{r}
+# We want the first three columns
+babynames %>% 
+  select(1:3)
+```
+
+We can also pass in conditionals to these functions. So, if we want all names between 1989 and 1996, we can type: 
+
+```{r}
+babynames %>% 
+  filter(Year > 1989, Year < 1996)
+```
+
+**Exercise**: Can you find the names of babies born in 1998? Try doing this first with Base R, and then Tidyverse
+
+```{r}
+# Base R
+
+```
+
+```{r}
+# Tidyverse
+
+```
+
+**Exercise**: Use `filter()` to extract data about your name (or another name of your choice).
+
+```{r}
+
+```
+
+**Exercise**: Arrange the data you produced above by `Count`. Hint: use `?count` for help. 
+
+```{r}
+
+```
+
+**Exercise**: (optional) Can you filter the data to extract only the most popular girls name in 1999?
+
+```{r}
+
+```
+
+### Creating new columns of data
+
+We have ways that we can create additional columns of data in our data frame as well. Above, you started using `count()` as a measure of name popularity, but a better measure would be to proportion so we don't confound popularity with the number of babies born in a year. In Base R, we can use the dollar sign notation to create new columns based on existing data. We simply pass the new column name as if it were variable. 
+
+```{r}
+babynames$logCount <- babynames$Count / 1000
+head(babynames)
+```
+
+We an achieve the same using the Tidyverse with the `mutate()` function. 
+
+```{r}
+babynames %>% 
+  mutate(logCount2 = Count / 1000)
+```
+
+We can also chain together more complicated ways of ranking, such as ranking proportion within each Sex by Year. Tidyverse makes this easy using it's `group_by()` function: 
+
+```{r}
+babynames3 <- babynames %>% 
+  group_by(Year, Sex) %>% 
+  mutate(Rank = rank(Count)) %>% 
+  ungroup()
+```
+
+### Summarizing data 
+
+R has a variety of ways to collapse data into single statistical summaries. One example of this is R's built-in `summary()` function, which compues min, max, mean, median, and quartiles. 
+
+```{r}
+summary(babynames)
+```
+
+We can also use the `summarize()` function from the Tidyverse to calculate and summarize data. For example, if we want to calculate the number of babies born each year: 
+
+```{r}
+names_by_year <- babynames %>% 
+  group_by(Year) %>% 
+  summarize(Total = sum(Count))
+names_by_year
+```
+
+**Exercise**: Filter the babynames data frame and keep only the ten most popular girls names for each year. 
+
+```{r}
+
+```
+
+**Exercise**: Summarize the data produced above to calculate the totoal proportion of boys and girls given one of the top ten names each year. 
+
+```{r}
+
+```
+
+## Saving our work
+
+Such like reading in datasets, we can easily write out data as well. Like before, Base R comes with a few of its own writing functions which are (you've probably already guessed) `write.csv`, `write.table`, and a few others. The Tidyverse also comes with its own write functions, including `write_csv`, `write_table`, among others. 
+
+If we want to save the work we've done to our babynames data set, we can simply write: 
+
+```{r}
+write_csv("~/Desktop/babynames.csv", babynames)
+```
