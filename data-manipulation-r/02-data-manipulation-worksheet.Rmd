@@ -115,8 +115,13 @@ The `arrange()` function lets us sort. Often we want to sort a data frame by one
 
 ```{r}
 crew_tidied %>% 
-  filter(year == 1830) %>% 
   arrange(desc(Age))
+```
+
+How would you return just the ships from 1830 sorted by the youngest passengers first?
+
+```{r}
+
 ```
 
 ## Data reshaping (`spread()` and `gather()`)
@@ -170,7 +175,7 @@ Is the data tidy? (Hint: no. Make a new data frame called `tidied` using `gather
 
 ```
 
-Notice that in the example above the `arrange()` function sorted the entire data frame. So when we looked for the counties with the largest number of people, we got rows from 2000, then 1990, then 1980, then 1970, and so on. What if we wanted to get the biggest county from each year?
+Notice that in the example above the `arrange()` function sorted the entire data frame. So when we looked for ships with the oldest passengers, we got rows from 1874, then 1882, then 1908, then 1863, and so on. What if we wanted to get the oldest passenger from each year?
 
 We can solve this kind of problem with what Hadley Wickham calls the "split-apply-combine" pattern of data analysis. Think of it this way. First we can *split* the big data frame into separate data frames, one for each year. Then we can *apply* our logic to get the results we want; in this case, that means sorting the data frame. We might also want to get just the top one row with the biggest number of people. Then we can *combine* those split apart data frames into a new data frame.
 
@@ -231,6 +236,8 @@ For each year, what were the top three largest counties?
 
 ```
 
+# Capstone
+
 For the year 1910, what was the largest county in each state?
 
 ```{r}
@@ -238,6 +245,12 @@ For the year 1910, what was the largest county in each state?
 ```
 
 For each year, what were the three largest counties in Nebraska?
+
+```{r}
+
+```
+
+How would you arrange the population of all counties by largest first? 
 
 ```{r}
 
