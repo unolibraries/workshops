@@ -1,6 +1,8 @@
 ---
 title: "R Basics"
+author: "Jason Heppler"
 date: "2/3/2020"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -10,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ## RStudio 
 
 We'll be doing all of our work in RStudio, an integrated development environment that is intended to make working with the language easier. The purpose of this workshop is to spend some time getting familiar with RStudio and R and explore different elements of both the language and the user interface of RStudio.
+
+![RStudio layout.](rstudio.png)
 
 ## R Basics
 
@@ -25,9 +29,15 @@ We'll be doing all of our work in RStudio, an integrated development environment
 
 ```
 
-3. RStudio includes lots of documentation. See if you can locate the "An Introduction to R" section of the R Resources guide using the Help pane in RStudio.
+3. What is the result of 2 times pi? 
 
-### Assignment
+```{r}
+
+```
+
+4. RStudio includes lots of documentation. See if you can locate the "An Introduction to R" section of the R Resources guide using the Help pane in RStudio.
+
+### Variable assignment
 
 R lets us assign variables to values, datasets, and even functions. This lets us store information that we can access again and again as we do our work. In R, this is done through the arrow operator `<-` -- anything on the right-hand side of the arrow will be assigned the name provided on the left-hand side. 
 
@@ -43,6 +53,34 @@ root_10
 
 Names of variables should start with a letter and typically be descriptive so you can keep track of variables as you work with them. Anytime to you need to see what's in the variable, you can type the name of the variable in the console or mouse click the name of the variable in the Environment pane in RStudio.
 
+We can read several data modes and structures in R, and we can check our environment variables at any time to see what those are. R typically recognizes **numeric**, **character**, and **logical** data types. Try the following: 
+
+```{r}
+is.numeric(x)
+```
+
+```{r}
+name <- "Jane"
+
+# numeric? 
+is.numeric(name)
+
+# character?
+is.character(name)
+```
+
+```{r}
+# R can tell us data types. 
+
+# What is x?
+class(x)
+
+# What is name?
+class(name)
+```
+
+R also recognizes matrices, arrays, and lists; consult the [exercises](https://jasonheppler.org/courses/bootcampr.2020/exercises/02-exercises/) for more information on these.
+
 ### Help!
 
 R contains a lot of included documentation, and you can ask for help at any time in RStudio. You can do this through the `help()` function or the `?` shortcut. You can ask for help on functions or packages. 
@@ -51,13 +89,19 @@ R contains a lot of included documentation, and you can ask for help at any time
 help(help) # or, ?help
 ```
 
+**Exercise**: How would you find help on using the `str()` function?
+
+```{r}
+
+```
+
 ### Reading data into R 
 
 Occassionally we can load in datasets that are built-in to R by default or are available through R packages. For example, you can use the `superfundr` library to load in a dataset of Superfund sites in the United States. 
 
 ```{r}
 library(superfundr)
-data(superfunds)
+data(superfunds) # type ?data in your console to see what this does
 superfunds
 ```
 
@@ -65,11 +109,12 @@ R also has several default ways of reading in files from comma-separated files, 
 
 ```{r}
 data <- read.csv("../../data/babyNames.csv")
+
 # Look at the top ten rows
 head(data)
 ```
 
-There is, however, a better way to get this data in. Base R's `read.csv()` will often read in categorical data as [factors](), which you typically won't want. You could pass an argument to `read.csv()` to prevent that, using `read.csv(data, stringsAsFactors = FALSE)`, but an even better way to do this is by using the data reading and writing functions available in the [Tidyverse](). The Tidyverse mimics Base R's data reading capabilities, but tries to smartly handle data as it comes in, including identifying dates, strings, and numbers. We can re-work the above data input as: 
+There is, however, a better way to get this data in. Base R's `read.csv()` will often read in categorical data as [factors](https://www.stat.berkeley.edu/~s133/factors.html), which you typically won't want. You could pass an argument to `read.csv()` to prevent that, using `read.csv(data, stringsAsFactors = FALSE)`, but an even better way to do this is by using the data reading and writing functions available in the [Tidyverse](https://www.tidyverse.org). The Tidyverse mimics Base R's data reading capabilities, but tries to smartly handle data as it comes in, including identifying dates, strings, and numbers. We can re-work the above data input as: 
 
 ```{r}
 library(tidyverse)
@@ -179,7 +224,7 @@ babynames %>%
 
 ### Creating new columns of data
 
-We have ways that we can create additional columns of data in our data frame as well. Above, you started using `count()` as a measure of name popularity, but a better measure would be to proportion so we don't confound popularity with the number of babies born in a year. In Base R, we can use the dollar sign notation to create new columns based on existing data. We simply pass the new column name as if it were variable. 
+We have ways that we can create additional columns of data in our data frame as well. Above, you started using `count()` as a measure of name popularity, but a better measure would be to proportion so we don't confound popularity with the number of babies born in a year. In Base R, we can use the dollar sign notation to create new columns based on existing data. We simply pass the new column name as if it were a variable. 
 
 ```{r}
 babynames$logCount <- babynames$Count / 1000
@@ -193,13 +238,10 @@ babynames %>%
   mutate(logCount2 = Count / 1000)
 ```
 
-We can also chain together more complicated ways of ranking, such as ranking proportion within each Sex by Year. Tidyverse makes this easy using it's `group_by()` function: 
+**Exercise**: Can you create a column that uses the `log()` function instead of dividing by 1000? 
 
 ```{r}
-babynames3 <- babynames %>% 
-  group_by(Year, Sex) %>% 
-  mutate(Rank = rank(Count)) %>% 
-  ungroup()
+
 ```
 
 ### Summarizing data 
@@ -219,13 +261,19 @@ names_by_year <- babynames %>%
 names_by_year
 ```
 
-**Exercise**: Filter the babynames data frame and keep only the ten most popular girls names for each year. 
+**Exercise**: Use `summary()` and subsetting to grab the summary of just the numeric columns (Year and Count) in the babynames data frame. 
 
 ```{r}
 
 ```
 
-**Exercise**: Summarize the data produced above to calculate the totoal proportion of boys and girls given one of the top ten names each year. 
+**Exercise**: How would you change the above code to only grab the Count column?
+
+```{r}
+
+```
+
+**Exercise**: Filter the babynames data frame and the five most popular girls names for each year. This one's tricky! You'll need some extra functions to get this working right, like `slice()`. 
 
 ```{r}
 
