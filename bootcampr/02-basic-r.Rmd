@@ -108,7 +108,7 @@ superfunds
 R also has several default ways of reading in files from comma-separated files, tab-separated files, fix width files, table formats, or other elimited files. There are a few functions available in R to get data in, including `read.csv`, `read.delim()`, `read.fwf()`, `read.table()`, and others. When you read data into R, you'll assign the dataset to a variable.
 
 ```{r}
-data <- read.csv("../../data/babyNames.csv")
+data <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/master/bootcampr/data/babyNames.csv")
 
 # Look at the top ten rows
 head(data)
@@ -120,7 +120,7 @@ There is, however, a better way to get this data in. Base R's `read.csv()` will 
 library(tidyverse)
 
 # Note the underscore instead of the period
-data2 <- read_csv("../../data/babyNames.csv")
+data2 <- read_csv("https://raw.githubusercontent.com/unolibraries/workshops/master/bootcampr/data/babyNames.csv")
 ```
 
 You'll note that the Tidyverse outputs some information for you to review, telling you that it has identified two columns containing character strings (Name and Sex) and two columns of integers (Count and Year). We could take this a step further and convert the Year into a Date object, but for now this works as we need it to.
@@ -136,7 +136,7 @@ str(data2)
 We're going to compare approaches to Base R and Tidyverse methods over the next few exercises, and we'll be using the baby names dataset for the next few examples. So, let's make sure we all have the same dataset assigned to the same variable. 
 
 ```{r}
-babynames <- read_csv("../../data/babyNames.csv")
+babynames <- read_csv("https://raw.githubusercontent.com/unolibraries/workshops/master/bootcampr/data/babyNames.csv")
 head(babynames)
 ```
 
