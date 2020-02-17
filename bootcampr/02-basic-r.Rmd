@@ -2,7 +2,7 @@
 title: "R Basics"
 author: "Jason Heppler"
 date: "2/3/2020"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -64,7 +64,9 @@ name <- "Jane"
 
 # numeric? 
 is.numeric(name)
+```
 
+```{r}
 # character?
 is.character(name)
 ```
@@ -97,12 +99,11 @@ help(help) # or, ?help
 
 ### Reading data into R 
 
-Occassionally we can load in datasets that are built-in to R by default or are available through R packages. For example, you can use the `superfundr` library to load in a dataset of Superfund sites in the United States. 
+Occassionally we can load in datasets that are built-in to R by default or are available through R packages. For example, you can use the `mtcars` library to load in a dataset vehicle fuel consumption and automobile design. 
 
 ```{r}
-library(superfundr)
-data(superfunds) # type ?data in your console to see what this does
-superfunds
+data(mtcars) # type ?data in your console to see what this does
+mtcars
 ```
 
 R also has several default ways of reading in files from comma-separated files, tab-separated files, fix width files, table formats, or other elimited files. There are a few functions available in R to get data in, including `read.csv`, `read.delim()`, `read.fwf()`, `read.table()`, and others. When you read data into R, you'll assign the dataset to a variable.
@@ -114,30 +115,29 @@ data <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/maste
 head(data)
 ```
 
-There is, however, a better way to get this data in. Base R's `read.csv()` will often read in categorical data as [factors](https://www.stat.berkeley.edu/~s133/factors.html), which you typically won't want. You could pass an argument to `read.csv()` to prevent that, using `read.csv(data, stringsAsFactors = FALSE)`, but an even better way to do this is by using the data reading and writing functions available in the [Tidyverse](https://www.tidyverse.org). The Tidyverse mimics Base R's data reading capabilities, but tries to smartly handle data as it comes in, including identifying dates, strings, and numbers. We can re-work the above data input as: 
-
-```{r}
-library(tidyverse)
-
-# Note the underscore instead of the period
-data2 <- read_csv("https://raw.githubusercontent.com/unolibraries/workshops/master/bootcampr/data/babyNames.csv")
-```
-
-You'll note that the Tidyverse outputs some information for you to review, telling you that it has identified two columns containing character strings (Name and Sex) and two columns of integers (Count and Year). We could take this a step further and convert the Year into a Date object, but for now this works as we need it to.
+Be aware that Base R's `read.csv()` will often read in categorical data as [factors](https://www.stat.berkeley.edu/~s133/factors.html), which you typically won't want. You may need to pass an argument to `read.csv()` to prevent that, using `read.csv(data, stringsAsFactors = FALSE)`.
 
 We can double-check the structure of our dataset using R's `str()` function, which tells us how R is interpreting columns. See this section's [exercises](https://jasonheppler.org/courses/bootcampr.2020/exercises/02-exercises/) for more information.
 
 ```{r}
-str(data2)
+str(data)
 ```
 
-## Welcome to the tidyverse
+## Subsetting data
 
-We're going to compare approaches to Base R and Tidyverse methods over the next few exercises, and we'll be using the baby names dataset for the next few examples. So, let's make sure we all have the same dataset assigned to the same variable. 
+We're going to compare approaches to Base R and Tidyverse methods in the next workshop, but for now let's dig into how Base R handles this. To make this a little more clear, let's rename `data` to `babynames`. 
 
 ```{r}
-babynames <- read_csv("https://raw.githubusercontent.com/unolibraries/workshops/master/bootcampr/data/babyNames.csv")
+babynames <- data
+
+# We can look at the top five rows
 head(babynames)
+```
+
+**Exercise**: How would you list out more than the top five items of the dataframe using head()? (Hint: check ?head)
+
+```{r}
+
 ```
 
 First, let's say we want to filter out names of babies born in a specific year. In Base R, we can achieve that through a method called **subsetting**. R has powerful ways for us to subset object elements, and we can do a variety of things to access the information. In Base R, if we want to locate all baby names used in 1990 one way of achieving that would be: 
@@ -162,61 +162,53 @@ babynames_subset2 <- subset(babynames, Year == 1990)
 babynames_subset2
 ```
 
-For the remainder of this workshop, however, we're going to use the Tidyverse library for accessing data in our data frames. We can achieve the same subset of data by typing: 
-
-```{r}
-babynames %>% 
-  filter(Year == 1990)
-```
-
-Why the Tidyverse? Because the above code is *much* cleaner than the Base R method. Most of the functions of the Tidyverse follow a grammar, typically verbs that indicate action being done upon a dataframe (like `filter` or `select` or `mutate` -- more on this later.)
-
-We can also grab a range of columns, or specific columns as we need. For example, using the Tidyverse we can write:
+We can also grab a range of columns, or specific columns as we need.
 
 ```{r}
 # We only want the Name and Year columns
-babynames %>% 
-  select(Name, Year)
+babynames[c("Name","Year")]
 ```
+
+We can also grab a range of observations using the range operator (`:`). If we want the first three rows in our dataframe, we can achieve that like this: 
 
 ```{r}
-# We want the first three columns
-babynames %>% 
-  select(1:3)
+babynames[1:3,]
 ```
 
-We can also pass in conditionals to these functions. So, if we want all names between 1989 and 1996, we can type: 
-
-```{r}
-babynames %>% 
-  filter(Year > 1989, Year < 1996)
-```
-
-**Exercise**: Can you find the names of babies born in 1998? Try doing this first with Base R, and then Tidyverse
-
-```{r}
-# Base R
-
-```
-
-```{r}
-# Tidyverse
-
-```
-
-**Exercise**: Use `filter()` to extract data about your name (or another name of your choice).
+**Exercise**: How would you select the rows thirty through fifty? 
 
 ```{r}
 
 ```
 
-**Exercise**: Arrange the data you produced above by `Count`. Hint: use `?count` for help. 
+**Exercise**: How would you grab the first thirty observations and first three variables?
 
 ```{r}
 
 ```
 
-**Exercise**: (optional) Can you filter the data to extract only the most popular girls name in 1999?
+We can also pass in conditionals to these functions, but we have to include the `which()` function to do so. Let's grab all names between 1989 and 1996: 
+
+```{r}
+# What does which() do? See ?which
+babynames[which(babynames$Sex == "Girls" & babynames$Year > 1989),]
+```
+
+Note, also, that in order for the code above to work **we must include which dataframe we are calling to** -- we cannot just include the column name alone (e.g., babynames$Year). Asking R to find these column names without first telling it which dataframe to use will result in an error.
+
+**Exercise**: Can you find the names of babies born in 1998? (Hint: remember the difference between `=` and `==`.)
+
+```{r}
+
+```
+
+**Exercise**: Use `subset()` to extract data about your name (or another name of your choice).
+
+```{r}
+
+```
+
+**Exercise**: (optional) Look up how to use the sample() and nrow() functions. How would you generate a random sample of data from the babynames data frame?
 
 ```{r}
 
@@ -224,21 +216,14 @@ babynames %>%
 
 ### Creating new columns of data
 
-We have ways that we can create additional columns of data in our data frame as well. Above, you started using `count()` as a measure of name popularity, but a better measure would be to proportion so we don't confound popularity with the number of babies born in a year. In Base R, we can use the dollar sign notation to create new columns based on existing data. We simply pass the new column name as if it were a variable. 
+We have ways that we can create additional columns of data in our data frame as well. Let's imagine we want to measure the popularity of a name. We could do this through proportion so we don't confound popularity with the number of babies born in a year. In Base R, we can use the dollar sign notation to create new columns based on existing data. We simply pass the new column name as if it were a variable. 
 
 ```{r}
 babynames$logCount <- babynames$Count / 1000
 head(babynames)
 ```
 
-We an achieve the same using the Tidyverse with the `mutate()` function. 
-
-```{r}
-babynames %>% 
-  mutate(logCount2 = Count / 1000)
-```
-
-**Exercise**: Can you create a column that uses the `log()` function instead of dividing by 1000? 
+**Exercise**: Can you create a column that uses the `log()` function instead of dividing by 1000? (Make sure to give your new column name a different name from logCount.)
 
 ```{r}
 
@@ -252,31 +237,28 @@ R has a variety of ways to collapse data into single statistical summaries. One 
 summary(babynames)
 ```
 
-We can also use the `summarize()` function from the Tidyverse to calculate and summarize data. For example, if we want to calculate the number of babies born each year: 
-
-```{r}
-names_by_year <- babynames %>% 
-  group_by(Year) %>% 
-  summarize(Total = sum(Count))
-names_by_year
-```
-
-**Exercise**: Use `summary()` and subsetting to grab the summary of just the numeric columns (Year and Count) in the babynames data frame. 
+**Exercise**: Use `summary()` and subsetting to grab the summary of babynames data from the year 1999. 
 
 ```{r}
 
 ```
 
-**Exercise**: How would you change the above code to only grab the Count column?
+## Descriptive statistics
+
+As a language designed for statistics, R comes with a variety of built-in descriptive statistics. Here's a few to check out: 
 
 ```{r}
-
-```
-
-**Exercise**: Filter the babynames data frame and the five most popular girls names for each year. This one's tricky! You'll need some extra functions to get this working right, like `slice()`. 
-
-```{r}
-
+data(trees)
+median(trees$Girth)
+var(trees$Girth) # variance
+sd(trees$Girth) # standard deviation
+max(trees$Girth) # max value
+min(trees$Girth) # min value
+range(trees$Girth) # range
+quantile(trees$Girth) # quantiles 25%
+fivenum(trees$Girth) # box plot elements
+length(trees$Girth) # number of observations for a variable
+length(trees) # number of observations for a dataset
 ```
 
 ## Saving our work
@@ -286,5 +268,5 @@ Such like reading in datasets, we can easily write out data as well. Like before
 If we want to save the work we've done to our babynames data set, we can simply write: 
 
 ```{r}
-write_csv("~/Desktop/babynames.csv", babynames)
+write.csv(babynames, file = "~/Desktop/babynames.csv")
 ```
