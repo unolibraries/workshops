@@ -27,7 +27,7 @@ str(crew)
 
 You'll notice a few problems right off the bat. **ApproximateDeparture**, for example, is a character rather than a number. Let's fix that first. 
 
-The `mutate()` function lets us create new columns out of existing columns. Below, we're going to take the date information and convert it into a Date object. To help out with this, we're going to use a package in the tidyverse called `lubridate`, which helps us extract date information and converts it into the appropriate `POSIXct` object (type in `?POSIXct` in your console for more information on what this is). Below, we're going to use lubridate to first convert the day-month-year date string, and then use lubridate to extract just the year and add a new column for that information.
+The `mudate()` function lets us create new columns out of existing columns. Below, we're going to take the date information and convert it into a Date object. To help out with this, we're going to use a package in the tidyverse called `lubridate`, which helps us extract date information and converts it into the appropriate `POSIXct` object (type in `?POSIXct` in your console for more information on what this is). Below, we're going to use lubridate to first convert the day-month-year date string, and then use lubridate to extract just the year and add a new column for that information.
 
 ```{r}
 # We're going to store this in a new variable so we keep the 
@@ -113,7 +113,7 @@ Get just the rows from 1890.
 
 # Arrange
 
-The `arrange()` function lets us sort. Often we want to sort a data frame by one of its columns. This can be done with the verb `arrange()`. By default `arrange()` will sort from least to greatest; we can use the function `desc()` to sort from greatest to least. In this example, we sort the data frame to get the ships that sailed in 1830 sorted by age. (Notice that we can create a pipeline of functions.)
+The `arrange()` function lets us sort. Often we want to sort a data frame by one of its columns. This can be done with the verb `arrange()`. By default `arrange()` will sort from least to greatest; we can use the function `desc()` to sort from greatest to least. In this example, we sort the data frame to get the ships that sailed in 1830 sorted by age. 
 
 ```{r}
 crew_tidied %>% 
@@ -138,15 +138,16 @@ cases <- read.csv("https://raw.githubusercontent.com/unolibraries/workshops/mast
 cases
 ```
 
-The first thing we can notice about this data frame is that it is very wide because it has a column for each of the countries. The data is also suitable for reading because it reads like a table in a publication. We can read from left to right and see population or case values for each year. The difficulties of computing on or plotting the data will also become quickly apparent. How would you make a plot of the change over time? Or how would you filter by year, or summarize by year? For that matter, what do the numbers in the table represent, since they are not given an explicit variable name?
+The first thing we can notice about each of these data frames is that they are wide. The data is also suitable for reading because it reads like a table in a publication. We can read from left to right and see population or case values for each year. The difficulties of computing on or plotting the data will also become quickly apparent. How would you make a plot of the change over time? Or how would you filter by year, or summarize by year? For that matter, what do the numbers in the table represent, since they are not given an explicit variable name?
 
 The problem with the table is that it is not *tidy data*, because the variables are not in columns and observations in rows. One of the variables is the year, but its values are in the column headers. And another of the variables is population, but its values are spread across rows and columns and it is not explicitly named. 
 
-The `gather()` function from the [tidyr](https://cran.rstudio.com/web/packages/tidyr/) package lets us turn wide data into long data. We need to tell the function two kinds of information. First we need to tell it the name of the column to create from the column headers and the name of the implicit variable in the rows. In the example below, we create two new columns `year` and `cases`. Then we also have to tell the function if there are any columns which should remain unchanged. If that were the case, we would remove it from the gathering using the same syntax as the `select()` function.
+The `gather()` function lets us turn wide data into long data. We need to tell the function two kinds of information. First we need to tell it the name of the column to create from the column headers and the name of the implicit variable in the rows. In the example below, we create two new columns `year` and `cases`. Then we also have to tell the function if there are any columns which should remain unchanged. If that were the case, we would remove it from the gathering using the same syntax as the `select()` function.
 
 ```{r}
 population %>% 
-  # we want the last two columns, so we tell R to select the range of columns from 2-3
+  # we want the last two columns, so we tell R 
+  # to select the range of columns from 2-3
   gather(year, population, 2:3) 
 ```
 
@@ -171,31 +172,31 @@ We're going to switch data gears and work with another set of data: Census infor
 cities <- read_csv("https://raw.githubusercontent.com/unolibraries/workshops/master/data-manipulation-r/CESTACityData.csv")
 ```
 
-Is the data tidy? (Hint: no. Make a new data frame called `tidied` using `gather`.)
+Is the data tidy? (Hint: no. Make a new data frame called `tidied` using `gather`. You'll need to use columns 5 to 27.)
 
 ```{r}
-
+tidied <- cities %>% gather(year, population, 5:27)
 ```
 
 Notice that in the example above the `arrange()` function sorted the entire data frame. So when we looked for ships with the oldest passengers, we got rows from 1874, then 1882, then 1908, then 1863, and so on. What if we wanted to get the oldest passenger from each year?
 
 We can solve this kind of problem with what Hadley Wickham calls the "split-apply-combine" pattern of data analysis. Think of it this way. First we can *split* the big data frame into separate data frames, one for each year. Then we can *apply* our logic to get the results we want; in this case, that means sorting the data frame. We might also want to get just the top one row with the biggest number of people. Then we can *combine* those split apart data frames into a new data frame.
 
-Observe how this works. If we want to get the county with the most people per year, we can use the following code:
+Observe how this works. If we want to get the county with the least people per year, we can use the following code:
 
 ```{r}
 tidied %>% 
-  select(ST, year, County, population) %>% 
-  group_by(year) %>% 
-  arrange(desc(population)) %>% 
-  slice(1) 
+  select(ST, year, County, population) %>% # just columns we want
+  group_by(year) %>% # we want to know per year
+  arrange(desc(population)) %>% # arrange by largest first
+  slice(1) # grab the first row
 ```
 
 Let's walk through that logic step by step. 
 
 1. First, we select only the columns that we are interested in, namely, the column for the year, the total population, the county, and the year. We do this just so that the results print out in a useful way: in a real analysis we might decide not to throw away the other columns.
 2. The crucial step is when we `group_by()` the `year`. This creates a new data-frame (the *split* step) for each unique combination of values in the variables. (Note that you can group by combinations of columns, so, one group for each combination of city and state, for instance.)
-4. Next we *apply* our logic, in this case, sorting by the column `population` in descending order. This puts the rows with the biggest value at the top.
+4. Next we *apply* our logic, in this case, sorting by the column `population`. This puts the rows with the largest value at the top.
 5. Next we continue to *apply* our logic with `slice()`. This function simply gives us the rows in each of the split-up data frames with that index. So `slice(1)` gives us the first row, `slice(5)` gives us this fifth row, and `slice(1:5)` gives us the first through fifth rows. 
 6. The last step, *combine*, where the split-up data frames are brought back together, is done for us automatically. Note that the data frame is still grouped, however, so any subsequent data manipulation verbs will be applied to the groups rather than the whole data frame. If we wished, we could use `ungroup()`.
 
@@ -205,7 +206,7 @@ This particular operation, getting the top value in a split up data frame is so 
 tidied %>% 
   select(ST, County, year, population) %>% 
   group_by(year) %>% 
-  top_n(1, population)
+  top_n(1, population) # e.g., changing 1 to 3 gives us the top 3
 ```
 
 We get the same results more concisely and reliably, though the steps of "split-apply-combine" are perhaps somewhat less easy to see.
@@ -227,9 +228,17 @@ Notice that we get one row in the recombined data frame for each group in the or
 There is also a special case where we might want to know how many rows were in each of the split apart (or grouped) data frames. We can use the special `n()` function to get that count. (Just like the case of `slice()` and `top_n()`, this is such a common thing to do that dplyr provides the special functions `count()` and `tally()`. You can look up their documentation to see how they work.)
 
 ```{r}
+# How many counties are in each state in 1990?
 tidied %>% 
+  filter(year == 1990) %>% 
   group_by(ST) %>% 
   summarize(total_counties = n())
+
+# Another way to do this is by using tally()
+# tidied %>% 
+#   filter(year == 1990) %>% 
+#   group_by(ST) %>% 
+#   tally()
 ```
 
 For each year, what were the top three largest counties?
@@ -247,12 +256,6 @@ For the year 1910, what was the largest county in each state?
 ```
 
 For each year, what were the three largest counties in Nebraska?
-
-```{r}
-
-```
-
-How would you arrange the population of all counties by largest first? 
 
 ```{r}
 
