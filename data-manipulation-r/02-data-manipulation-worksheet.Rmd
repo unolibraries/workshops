@@ -27,20 +27,22 @@ str(crew)
 
 You'll notice a few problems right off the bat. **ApproximateDeparture**, for example, is a character rather than a number. Let's fix that first. 
 
-The `mutate()` function lets us create new columns out of existing columns. Below, we split out the ApproximateDeparture data, replace the long-form date with just the year using some regex (we're not covering this today, but don't worry if you don't understand it -- part of writing code is being comfortable with what you don't understand at first.) Then, once we have a new `year` column, we recombine that data with our existing data frame using `mutate()`. 
+The `mudate()` function lets us create new columns out of existing columns. Below, we're going to take the date information and convert it into a Date object. To help out with this, we're going to use a package in the tidyverse called `lubridate`, which helps us extract date information and converts it into the appropriate `POSIXct` object (type in `?POSIXct` in your console for more information on what this is). Below, we're going to use lubridate to first convert the day-month-year date string, and then use lubridate to extract just the year and add a new column for that information.
 
 ```{r}
-departure <- crew %>% pull(ApproximateDeparture) %>% 
-  str_replace(".*([0-9]{4}).*", "\\1") %>% 
-  as.numeric()
-# We've created a large numeric list of departure years, now we want to recombine
-# that data with our data frame.
+# We're going to store this in a new variable so we keep the 
+# original crew dataset as-is, in case we need to re-run
+# any data tidying.
+crew_tidied <- crew %>% 
+  mutate(ApproximateDeparture = lubridate::dmy(ApproximateDeparture))
 
-crew_tidied <- crew %>%
-  mutate(year = departure)
+# Let's also create a new column called year that just includes
+# the year data.
+crew_tidied <- crew_tidied %>% 
+  mutate(year = lubridate::year(ApproximateDeparture))
 ```
 
-Now we can inspect our data again, and see that there's a new column called `year` classed as a numeric column (`num`). 
+Now we can inspect our data again, and see that there's a new column called `year` classed as a numeric column (`num`) and ApproximateDeparture classed as `Date`. 
 
 ```{r}
 str(crew_tidied)
@@ -59,7 +61,7 @@ We can also get rid of columns by using the `-` sign. The `starts_with()` and `e
 
 Read the documentation for this function, `?select`.
 
-Select the three `name` columns by looking for the columns that end with `Name`.
+Select the three `name` columns by looking for the columns that end with `Name`. (Note: this is not case-sensitive.)
 
 ```{r}
 
@@ -91,7 +93,7 @@ crew_tidied %>%
   filter(Age > 18) 
 ```
 
-Can you get just the Sloop rig and those over 18 years old? (Hint: you can string together filters with comma separations.)
+Can you get just the Sloop rig and those over 18 years old? (Hint: you can string together filters with comma separations. The comma is equivalent to an AND operator.)
 
 ```{r}
 
