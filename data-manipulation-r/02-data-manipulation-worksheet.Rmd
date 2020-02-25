@@ -27,7 +27,7 @@ str(crew)
 
 You'll notice a few problems right off the bat. **ApproximateDeparture**, for example, is a character rather than a number. Let's fix that first. 
 
-The `mudate()` function lets us create new columns out of existing columns. Below, we're going to take the date information and convert it into a Date object. To help out with this, we're going to use a package in the tidyverse called `lubridate`, which helps us extract date information and converts it into the appropriate `POSIXct` object (type in `?POSIXct` in your console for more information on what this is). Below, we're going to use lubridate to first convert the day-month-year date string, and then use lubridate to extract just the year and add a new column for that information.
+The `mutate()` function lets us create new columns out of existing columns. Below, we're going to take the date information and convert it into a Date object. To help out with this, we're going to use a package in the tidyverse called `lubridate`, which helps us extract date information and converts it into the appropriate `POSIXct` object (type in `?POSIXct` in your console for more information on what this is). Below, we're going to use lubridate to first convert the day-month-year date string, and then use lubridate to extract just the year and add a new column for that information.
 
 ```{r}
 # We're going to store this in a new variable so we keep the 
