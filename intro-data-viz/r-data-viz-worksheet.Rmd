@@ -135,7 +135,7 @@ ggplot(climate_subset, aes(x = Year, y = Anomaly10y)) +
 
 ```
 
-(@) How would you include a confidence interval in the line chart? (Some hints: look at `ggribbon`. You'll need a bit of math for `Anomly10y` and `Unc10y`. You'll need more than one geom.)
+(@) How would you include a confidence interval in the line chart for the climate_subset data? (Some hints: look at `ggribbon`. You'll need a bit of math for `Anomly10y` and `Unc10y`. You'll need more than one geom.)
 
 ```{r}
 
